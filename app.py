@@ -1,4 +1,4 @@
-from triangle import draw_triangle
+from fractal_dots import fractal_dots
 
 if __name__ == '__main__':
-    draw_triangle()
+    fractal_dots()

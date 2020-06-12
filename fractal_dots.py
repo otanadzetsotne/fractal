@@ -1,7 +1,8 @@
-from matplotlib import pyplot as plt
 import random as rd
-import numpy as np
 from math import sin, cos, radians
+
+import numpy as np
+from matplotlib import pyplot as plt
 
 
 def get_rnd(scale: int):
@@ -54,20 +55,21 @@ def fractal_dots(
         update: int = 100,
         scale: int = 1000,
         dot_size: float = .1,
-        color: str = 'black'
-):
-    plt.title("Fractal")
+        color: str = 'black'):
 
-    figure = get_figure(angles, scale, symmetry)
-    plt.scatter(figure[0], figure[1], c=color, s=dot_size)
-
-    loc = np.array([get_rnd(scale), get_rnd(scale)])
-    plt.scatter(loc[0], loc[1], c=color, s=dot_size)
-
-    fig_manager = plt.get_current_fig_manager()
-    fig_manager.window.showMaximized()
+    def draw_figure(f: np.array, c: str, s: float):
+        plt.scatter(f[0], f[1], c=c, s=s)
+        plt.draw()
+        plt.gcf().canvas.flush_events()
 
     plt.ion()
+    plt.show()
+
+    figure = get_figure(angles, scale, symmetry)
+    draw_figure(f=figure, c=color, s=dot_size)
+
+    loc = np.array([get_rnd(scale), get_rnd(scale)])
+    draw_figure(f=loc, c=color, s=dot_size)
 
     xs = np.array([loc[0]])
     ys = np.array([loc[1]])
@@ -81,12 +83,10 @@ def fractal_dots(
         ys = np.insert(ys, 0, loc[1])
 
         if i % update == 0:
-            plt.scatter(xs, ys, c=color, s=dot_size)
-            plt.draw()
-            plt.gcf().canvas.flush_events()
+            draw_figure(f=np.array(xs, ys), c=color, s=dot_size)
             xs = np.array([loc[0]])
             ys = np.array([loc[1]])
-            print(i)
 
     plt.ioff()
     plt.show()
+    return True

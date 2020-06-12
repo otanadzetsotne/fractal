@@ -1,6 +1,6 @@
-from matplotlib import pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
+from matplotlib import pyplot as plt
 
 
 def fractal_square(depth: int = 2, size: int = 500):
@@ -60,5 +60,6 @@ def fractal_square(depth: int = 2, size: int = 500):
 
         plt.ioff()
         plt.show()
+        return True
 
     main(depth, size)
